@@ -12,7 +12,7 @@ timetable = {
     day == 4: 'четверг\n' + 'TODO:\n' * day,
     day == 5: 'пятницу\n' + 'TODO:\n' * day,
     day == 6: 'субботу\n' + 'TODO:\n' * day,
-    day == 7: 'четверг\n' + 'TODO:\n' * day,
+    day == 7: 'воскресенье\n' + 'TODO:\n' * day,
 }[True]
 
 print('План на', timetable)
