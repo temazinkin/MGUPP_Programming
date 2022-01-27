@@ -2,75 +2,105 @@
 # Необходимо вывести на экран словами введенную сумму
 # и в конце написать название валюты с правильным окончанием.
 
-def text_with_num(num: int, text: list) -> str:
-    which = -1
-    which += num % 10 == 1 and num % 100 != 11
-    which += 2 <= num % 10 <= 4 and \
-             (num % 100 < 10 or num % 100 >= 20) and 2
-    return f'{text[which]}'
+units = (
+    'ноль',
+    ('один', 'одна'),
+    ('два', 'две'),
+    'три', 'четыре', 'пять',
+    'шесть', 'семь', 'восемь', 'девять'
+)
+
+teens = (
+    'десять', 'одиннадцать',
+    'двенадцать', 'тринадцать',
+    'четырнадцать', 'пятнадцать',
+    'шестнадцать', 'семнадцать',
+    'восемнадцать', 'девятнадцать'
+)
+
+tens = (
+    teens,
+    'двадцать', 'тридцать',
+    'сорок', 'пятьдесят',
+    'шестьдесят', 'семьдесят',
+    'восемьдесят', 'девяносто'
+)
+
+hundreds = (
+    'сто', 'двести',
+    'триста', 'четыреста',
+    'пятьсот', 'шестьсот',
+    'семьсот', 'восемьсот',
+    'девятьсот'
+)
+
+orders = (
+    (('тысяча', 'тысячи', 'тысяч'), 'f'),
+)
 
 
-RUS = {
-    0: [''], 1: ['один', 'одна'],
-    2: ['два', 'две'], 3: ['три'],
-    4: ['четыре'], 5: ['пять'],
-    6: ['шесть'], 7: ['семь'],
-    8: ['восемь'], 9: ['девять'],
-    10: ['десять', 'десят'],
-    11: ['одиннадцать'], 12: ['двенадцать'],
-    13: ['тринадцать'], 14: ['четырнадцать'],
-    15: ['пятнадцать'], 16: ['шестнадцать'],
-    17: ['семнадцать'], 18: ['восемнадцать'],
-    19: ['девятнадцать'], 20: ['двадцать'],
-    30: ['тридцать'], 40: ['сорок'],
-    90: ['девяносто'], 100: ['сто', 'ста', 'сот'],
-    200: ['двести'], 1000: ['тысяча', 'тысячи', 'тысяч'],
-    '$': ['доллар', 'доллара', 'долларов'],
-}
+def thousand(rest, sex):
+    prev = 0
+    plural = 2
+    name = []
+    use_teens = rest % 100 >= 10 and rest % 100 <= 19
+    if not use_teens:
+        data = ((units, 10), (tens, 100), (hundreds, 1000))
+    else:
+        data = ((teens, 10), (hundreds, 1000))
+    for names, x in data:
+        cur = int(((rest - prev) % x) * 10 / x)
+        prev = rest % x
+        if x == 10 and use_teens:
+            plural = 2
+            name.append(teens[cur])
+        elif cur == 0:
+            continue
+        elif x == 10:
+            name_ = names[cur]
+            if isinstance(name_, tuple):
+                name_ = name_[0 if sex == 'm' else 1]
+            name.append(name_)
+            if cur >= 2 and cur <= 4:
+                plural = 1
+            elif cur == 1:
+                plural = 0
+            else:
+                plural = 2
+        else:
+            name.append(names[cur-1])
+    return plural, name
 
-amount = int(input('Введите сумму: '))
-phrase = ''
 
-thousands = amount // 1000
-if thousands:
-    phrase += RUS[thousands][-1] + ' '
-    phrase += text_with_num(thousands, RUS[1000])
+def num2text(num, main_units=(('', '', ''), 'm')):
+    _orders = (main_units,) + orders
+    if num == 0:
+        return ' '.join((units[0], _orders[0][0][2])).strip()
 
-phrase = phrase.strip() + ' '
+    rest = abs(num)
+    ord = 0
+    name = []
+    while rest > 0:
+        plural, nme = thousand(rest % 1000, _orders[ord][1])
+        if nme or ord == 0:
+            name.append(_orders[ord][0][plural])
+        name += nme
+        rest = int(rest / 1000)
+        ord += 1
+    name.reverse()
+    return ' '.join(name).strip().capitalize()
 
-hundreds = amount // 100 % 10
-if hundreds:
-    phrase += RUS.get(hundreds * 100, [False])[0] or\
-              RUS[hundreds][-1] + \
-              RUS[100][1 + hundreds // 5]
 
-phrase = phrase.strip() + ' '
+def plural(n):
+    days = ['доллар', 'доллара', 'долларов']
+    if n % 10 == 1 and n % 100 != 11:
+        p = 0
+    elif 2 <= n % 10 <= 4 and (n % 100 < 10 or n % 100 >= 20):
+        p = 1
+    else:
+        p = 2
+    return days[p]
 
-tens = amount % 100
-if tens < 20:
-    phrase += RUS.get(tens, [False])[0] or ''
-else:
-    phrase += RUS.get(tens // 10 * 10, [False])[0] or\
-              RUS[tens // 10][0] + RUS[10][1]
 
-    phrase = phrase.strip() + ' '
-    tens = tens % 10
-    phrase += RUS[tens][0]
-
-phrase = phrase.strip() + ' '
-phrase += text_with_num(amount, RUS['$'])
-phrase = phrase.capitalize()
-
-print(phrase)
-
-# Введите сумму: 7431
-# > Семь тысяч четыреста тридцать один доллар
-
-# Введите сумму: 2149
-# > Две тысячи сто сорок девять долларов
-
-# Введите сумму: 15
-# > Пятнадцать долларов
-
-# Введите сумму: 3
-# > Три доллара
+a = int(input())
+print(num2text(a), plural(a))

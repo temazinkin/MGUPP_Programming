@@ -7,24 +7,11 @@
 # Если нет – показать еще и правильный результат.
 
 
-first = int(input('Первое число: '))
-second = int(input('Второе число: '))
-
-result = int(input(f'{first} * {second} = '))
-
-if result == first * second:
-    print('Верно')
+a = int(input())
+b = int(input())
+print(a, '*', b, '=')
+c = int(input())
+if c == a * b:
+    print('Ок')
 else:
-    print(f'Неверно, '
-          f'{first} * {second} = {first * second}')
-
-
-# Первое число: 5
-# Второе число: 6
-# 5 * 6 = 30
-# > Верно
-
-# Первое число: 4
-# Второе число: 5
-# 4 * 5 = 30
-# > Неверно, 4 * 5 = 20
+    print('Правильный ответ', a * b)

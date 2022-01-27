@@ -5,19 +5,7 @@
 # Валюта пусть будет – доллар США.
 # Процентная ставка – 5% годовых.
 
-deposit = int(input('Сумма вклада: '))
-months = int(input('Количество месяцев: '))
-
-percent_per_year = .05
-percent_per_month = percent_per_year / 365 * 30
-
-profit_per_month = deposit * percent_per_month
-amount = deposit + profit_per_month * months
-
-print(f'Прибыль в месяц: {profit_per_month:.02f}$')
-print(f'Сумма после {months} месяцев: {amount:.02f}$')
-
-# Сумма вклада: 100000
-# Количество месяцев: 12
-# > Прибыль в месяц: 410.96$
-# > Сумма после 12 месяцев: 104931.51$
+a = int(input())
+b = int(input())
+print(a * 0.05 / 365 * 30)
+print(a + a * 0.05 / 365 * 30 * b)

@@ -2,9 +2,9 @@
 # вторая переменная равна первой переменной увеличенной на 3,
 # а третья переменная равна сумме первых двух.
 
-first = 21
-second = first * 3
-third = first + second
-
-print(first, second, third)
-# > 21 63 84
+a = 21
+b = a * 3
+c = a + b
+print(a)
+print(b)
+print(c)

@@ -4,42 +4,30 @@
 # и больших букв (избавиться от регистрозависимости).
 # То есть если введено или D, или d — должен сработать один и тот же case.
 
-stations = {
-    'a': {
-        'name': 'Trinitat Nova',
-        'time': 15,
-    },
-    'b': {
-        'name': 'Casa de l\'Aigua',
-        'time': 19,
-    },
-    'c': {
-        'name': 'Torre Baro Vallbona',
-        'time': 25,
-    },
-    'd': {
-        'name': 'Ciutat Meridiana',
-        'time': 30,
-    },
-    'e': {
-        'name': 'Can Cuias',
-        'time': 38,
-    },
-}
+a = input()
+b = True
 
-station = input('Введите название станции: ').lower()
-
-while not stations.get(station):
-    print('Такой станции нет')
-    station = input('Введите название станции: ').lower()
-
-print(f'Станция метро {stations[station]["name"]}')
-print(f'Время в пути — {stations[station]["time"]}'
-      f' мин.')
-
-
-# Введите название станции: g
-# > Такой станции нет
-# > Введите название станции: e
-# > Станция метро Can Cuias
-# > Время в пути — 38 мин.
+while b:
+    if a in 'Aa':
+        print('Trinitat Nova')
+        print('15 мин')
+        b = False
+    elif a in 'Bb':
+        print("Casa de l'Aigua")
+        print('19 мин')
+        b = False
+    elif a in 'Cc':
+        print('Torre Baro Vallbona')
+        print('25 мин')
+        b = False
+    elif a in 'Dd':
+        print('Ciutat Meridiana')
+        print('30 мин')
+        b = False
+    elif a in 'Ee':
+        print('Can Cuias')
+        print('38 мин')
+        b = False
+    else:
+        print('Станции нет')
+        a = input()

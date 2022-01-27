@@ -3,11 +3,5 @@
 # из которых это число состоит.
 # То есть мы должны увидеть на экране 8765.
 
-number = 5678
-
-inverted = number % 10 * 1000
-inverted += number // 10 % 10 * 100
-inverted += number // 100 % 10 * 10
-inverted += number // 1000
-
-print(inverted)
+a = input()[::-1]
+print(a)

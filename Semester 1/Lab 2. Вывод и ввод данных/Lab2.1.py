@@ -2,15 +2,12 @@
 # и предложите пользователю ввести в них значения.
 # После ввода, отобразите их на экране.
 
-type_int = int(input('Целое число: '))
-type_float = float(input('Вещественное число: '))
-type_str = input('Строковое значение: ')
-type_bool = input('Логическое значение: ') == 'True'
-
-print(type_int, type_float, type_str, type_bool)
-
-#   Целое число: 5
-#   Вещественное число: 4.3
-#   Строковое значение: Zinkin
-#   Логическое значение: True
-# > 5 4.3 Zinkin Trueё
+print('Целое')
+a = int(input())
+print('Вещественное')
+b = float(input())
+print('Строковое')
+c = str(input())
+print('1 или 0')
+d = bool(int(input()))
+print(a, b, c, d)

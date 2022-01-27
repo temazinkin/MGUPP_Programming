@@ -3,23 +3,18 @@
 # и у него на экране отображается,
 # то, что запланировано на этот день.
 
-day = int(input('Введите номер дня недели '))
-
-timetable = {
-    day == 1: 'понедельник\n' + 'TODO:\n' * day,
-    day == 2: 'вторник\n' + 'TODO:\n' * day,
-    day == 3: 'среду\n' + 'TODO:\n' * day,
-    day == 4: 'четверг\n' + 'TODO:\n' * day,
-    day == 5: 'пятницу\n' + 'TODO:\n' * day,
-    day == 6: 'субботу\n' + 'TODO:\n' * day,
-    day == 7: 'воскресенье\n' + 'TODO:\n' * day,
-}[True]
-
-print('План на', timetable)
-
-
-# Введите номер дня недели 3
-# > План на среду
-# > TODO:
-# > TODO:
-# > TODO:
+day = int(input())
+if day == 1:
+    print('планы на понедельник')
+elif day == 2:
+    print('планы на вторник')
+elif day == 3:
+    print('планы на среду')
+elif day == 4:
+    print('планы на четверг')
+elif day == 5:
+    print('планы на пятницу')
+elif day == 6:
+    print('планы на субботу')
+elif day == 7:
+    print('планы на воскресенье')
